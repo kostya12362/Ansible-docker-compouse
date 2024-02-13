@@ -1,3 +1,9 @@
+- name: Ensure the git directory exists
+  ansible.builtin.file:
+    path: "{{ APP_PATH }}"
+    state: directory
+    mode: "0755"
+
 - name: Pull app changes
   git:
     repo: "git@github.com:{{ GITHUB_REPO }}.git"
