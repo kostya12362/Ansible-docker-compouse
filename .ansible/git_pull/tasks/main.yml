@@ -4,6 +4,18 @@
     state: directory
     mode: "0755"
 
+- name: Check if .git directory exists
+  ansible.builtin.stat:
+    path: "{{ APP_PATH }}/.git"
+  register: git_directory
+
+- name: Clone the repository if it does not exist
+  ansible.builtin.git:
+    repo: "git@github.com:{{ GITHUB_REPO }}.git"
+    dest: "{{ APP_PATH }}"
+    version: main
+  when: not git_directory.stat.exists
+
 - name: Pull app changes
   git:
     repo: "git@github.com:{{ GITHUB_REPO }}.git"
