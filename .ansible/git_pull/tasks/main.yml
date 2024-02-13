@@ -16,9 +16,10 @@
     version: main
   when: not git_directory.stat.exists
 
-- name: Pull app changes
-  git:
+- name: Pull app changes if repo already cloned
+  ansible.builtin.git:
     repo: "git@github.com:{{ GITHUB_REPO }}.git"
     dest: "{{ APP_PATH }}"
-    single_branch: yes
     version: main
+    single_branch: yes
+  when: git_directory.stat.exists
