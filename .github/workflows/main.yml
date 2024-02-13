@@ -17,7 +17,7 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           inventory: |
             [all]
-            ${{secrets.IP_SERVER}} address=localhost
+            ${{secrets.IP_SERVER}} address=localhost ansible_ssh_user=root
           options: |
             -e GITHUB_REPO=${{github.repository}}
             -e NODE_ENV=${{vars.NODE_ENV}}
