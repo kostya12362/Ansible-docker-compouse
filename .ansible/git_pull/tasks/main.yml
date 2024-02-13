@@ -9,6 +9,12 @@
     path: "{{ APP_PATH }}/.git"
   register: git_directory
 
+- name: Ensure GitHub.com is in known_hosts
+  ansible.builtin.shell:
+    cmd: ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+  args:
+    executable: /bin/bash
+
 - name: Clone the repository if it does not exist
   ansible.builtin.git:
     repo: "git@github.com:{{ GITHUB_REPO }}.git"
