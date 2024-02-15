@@ -21,5 +21,7 @@ jobs:
           options: |
             -e GITHUB_REPO=${{github.repository}}
             -e NODE_ENV=${{vars.NODE_ENV}}
+            -e DB_NAME_MG=test
+            -e DB_USER_MG=test
             -e APP_PORT=${{vars.APP_PORT}}
             -e APP_PATH=${{vars.APP_PATH}}
