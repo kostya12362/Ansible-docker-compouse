@@ -26,6 +26,7 @@
     src: "{{ item.path }}"
     dest: "{{ item.path | regex_replace('env.template$', '.env') }}"
     group: root
+    remote_src: true
     owner: root
     mode: "0755"
   loop: "{{ template_files.files }}"
