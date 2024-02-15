@@ -1,11 +1,11 @@
 - name: Find all .env.template files in the project
   ansible.builtin.find:
-    paths: "{{ APP_PATH }}"
+    paths: "{{ APP_PATH }}"  # Используйте APP_PATH для указания директории проекта
     patterns: "*.env.template"
     recurse: yes
   register: template_files
 
-- name: Create .env files from .env.template
+- name: Generate .env files from .env.template
   ansible.builtin.template:
     src: "{{ item.path }}"
     dest: "{{ item.path | regex_replace('.env.template$', '.env') }}"
