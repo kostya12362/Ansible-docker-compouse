@@ -1,7 +1,7 @@
 - name: Find all .env.template files in the project
   ansible.builtin.find:
     paths: "{{ APP_PATH }}"
-    patterns: "*env.template"
+    patterns: "*.env.template"
     recurse: yes
   register: template_files
 
@@ -21,12 +21,8 @@
   ansible.builtin.debug:
     var: template_files.files
 
-- name: Generate .env files from .env.template
+- name: Generate .env files from found templates
   ansible.builtin.template:
     src: "{{ item.path }}"
-    dest: "{{ item.path | regex_replace('env.template$', '.env') }}"
-    group: root
-    owner: root
-    mode: "0755"
-    become: yes
+    dest: "{{ item.path | regex_replace('.env.template$', '.env') }}"
   loop: "{{ template_files.files }}"
