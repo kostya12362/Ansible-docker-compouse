@@ -3,4 +3,5 @@
   remote_user: root
   roles:
     - git_control
+    - env_control
     - docker_restart
