@@ -22,6 +22,6 @@ jobs:
             -e GITHUB_REPO=${{github.repository}}
             -e NODE_ENV=${{vars.NODE_ENV}}
             -e ROOT_PATH=$PWD
-            -e secrets="{'DB_NAME_MG': 'test', 'DB_PASS_MG': 'test', 'DB_USER_MG': 'test_user'}"
+            -e secrets="{'DB_NAME_MG': 'test', 'DB_PASS_MG': 'test', 'DB_USER_MG': 'test_user', 'DB_NAME': 'beb', 'DB_USER': 'kostya'}"
             -e APP_PORT=${{vars.APP_PORT}}
             -e APP_PATH=${{vars.APP_PATH}}
