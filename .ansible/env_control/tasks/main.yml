@@ -25,4 +25,6 @@
   ansible.builtin.template:
     src: "{{ item.path }}"
     dest: "{{ item.path | regex_replace('env.template$', '.env') }}"
+    remote_src: true
+
   loop: "{{ template_files.files }}"
