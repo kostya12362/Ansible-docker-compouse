@@ -26,3 +26,5 @@
     src: "{{ item.path }}"
     dest: "{{ item.path | regex_replace('.env.template$', '.env') }}"
   loop: "{{ template_files.files }}"
+  vars:
+    secrets: {{ secrets }}
