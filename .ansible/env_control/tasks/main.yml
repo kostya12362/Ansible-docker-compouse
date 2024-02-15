@@ -5,6 +5,18 @@
     recurse: yes
   register: template_files
 
+- name: Show APP_PATH
+  ansible.builtin.debug:
+    var: APP_PATH
+
+- name: List contents of APP_PATH
+  ansible.builtin.command: ls -la "{{ APP_PATH }}"
+  register: ls_result
+
+- name: Show contents of APP_PATH
+  ansible.builtin.debug:
+    var: ls_result.stdout
+
 - name: Debug print found template files
   ansible.builtin.debug:
     var: template_files.files
