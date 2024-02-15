@@ -5,7 +5,6 @@
     recurse: yes
     use_regex: yes # Для использования регулярных выражений в patterns
   register: template_files
-  failed_when: "'failed' in template_files"
 
 - name: Show APP_PATH
   ansible.builtin.debug:
