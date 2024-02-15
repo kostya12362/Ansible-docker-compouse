@@ -10,6 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         name: Checkout
+      - name: Check PWD
+          run: |
+            echo "$PWD"
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
