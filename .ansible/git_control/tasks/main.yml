@@ -1,0 +1,47 @@
+- name: Ensure the git directory exists
+  ansible.builtin.file:
+    path: "{{ APP_PATH }}"
+    state: directory
+    mode: "0755"
+
+- name: Check if .git directory exists
+  ansible.builtin.stat:
+    path: "{{ APP_PATH }}/.git"
+  register: git_directory
+
+- name: Get current git repository URL
+  ansible.builtin.command: "git -C {{ APP_PATH }} config --get remote.origin.url"
+  register: current_repo
+  failed_when: false
+  ignore_errors: yes
+  when: git_directory.stat.exists
+
+- name: Fail if APP_PATH is used by another repository
+  fail:
+    msg: "APP_PATH '{{ APP_PATH }}' is already used by another repository '{{ current_repo.stdout }}'. Execution stopped."
+  when: >
+    git_directory.stat.exists and
+    current_repo.stdout != "" and
+    current_repo.stdout != "git@github.com:{{ GITHUB_REPO }}.git"
+
+- name: Ensure GitHub.com is in known_hosts
+  ansible.builtin.shell:
+    cmd: ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+  when: git_directory.stat.exists
+
+- name: Clone the repository if it does not exist
+  ansible.builtin.git:
+    repo: "git@github.com:{{ GITHUB_REPO }}.git"
+    dest: "{{ APP_PATH }}"
+    version: main
+  when: not git_directory.stat.exists
+
+- name: Pull app changes if repo already cloned and matches the expected repo
+  ansible.builtin.git:
+    repo: "git@github.com:{{ GITHUB_REPO }}.git"
+    dest: "{{ APP_PATH }}"
+    version: main
+    force: yes
+  when: >
+    git_directory.stat.exists and
+    (current_repo.stdout == "git@github.com:{{ GITHUB_REPO }}.git" or current_repo.stdout == "")

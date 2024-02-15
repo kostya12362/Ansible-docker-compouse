@@ -1,8 +1,8 @@
-name: Deploy Node.js app to AWS EC2 Ubuntu server
+name: Deploy ${{ github.repository }} repo to server
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
