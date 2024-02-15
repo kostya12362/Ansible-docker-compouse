@@ -1,7 +1,8 @@
 - name: Find all .env.template files in the project
   ansible.builtin.find:
     paths: "{{ APP_PATH }}"
-    patterns: "*.env.template"
+    file_type: file
+    patterns: "*.template"
     recurse: yes
   register: template_files
 
