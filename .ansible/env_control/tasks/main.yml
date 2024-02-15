@@ -1,10 +1,11 @@
 - name: Find all .env.template files in the project
   ansible.builtin.find:
     paths: "{{ APP_PATH }}"
-    file_type: file
-    patterns: "*.template"
+    patterns: ".env.template"
     recurse: yes
+    use_regex: yes
   register: template_files
+  failed_when: "'failed' in template_files"
 
 - name: Show APP_PATH
   ansible.builtin.debug:
