@@ -21,6 +21,6 @@ jobs:
           options: |
             -e GITHUB_REPO=${{github.repository}}
             -e NODE_ENV=${{vars.NODE_ENV}}
-            -e secrets={'DB_NAME_MG': 'test', 'DB_PASS_MG': 'test', 'DB_USER_MG': 'test_user'}
+            -e secrets="{'DB_NAME_MG': 'test', 'DB_PASS_MG': 'test', 'DB_USER_MG': 'test_user'}"
             -e APP_PORT=${{vars.APP_PORT}}
             -e APP_PATH=${{vars.APP_PATH}}
