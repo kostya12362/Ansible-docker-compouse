@@ -1,4 +1,4 @@
-name: Deploy ${{ github.repository }} repo to server
+name: Deploy test app repo to server
 
 on:
   push:
