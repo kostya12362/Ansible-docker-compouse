@@ -4,4 +4,4 @@
   roles:
     - git_control
     - env_control
-    - docker_restart
+    # - docker_restart
