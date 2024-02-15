@@ -21,10 +21,10 @@
   ansible.builtin.debug:
     var: template_files.files
 
-- name: Generate .env files from env.template
+- name: Generate .env files from .env.template
   ansible.builtin.template:
     src: "{{ item.path }}"
     dest: "{{ item.path | regex_replace('env.template$', '.env') }}"
     remote_src: true
-
+    mode: "0644" # Устанавливает права доступа к файлу
   loop: "{{ template_files.files }}"
